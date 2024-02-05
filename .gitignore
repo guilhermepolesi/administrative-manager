@@ -26,7 +26,8 @@ replay_pid*
 #-------
 target/
 mvnw
-.md 
-.idea
-.mvn
-.cmd
+*.md 
+*.idea
+*.mvn
+*.cmd
+*.properties
