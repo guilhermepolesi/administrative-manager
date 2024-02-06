@@ -1,9 +1,7 @@
 package com.guilherme.administrativemanager.config;
 
-import com.guilherme.administrativemanager.entities.Department;
-import com.guilherme.administrativemanager.entities.DepartmentCategory;
-import com.guilherme.administrativemanager.entities.Supplier;
-import com.guilherme.administrativemanager.entities.User;
+import com.guilherme.administrativemanager.entities.*;
+import com.guilherme.administrativemanager.repositories.ClientRepository;
 import com.guilherme.administrativemanager.repositories.DepartmentRepository;
 import com.guilherme.administrativemanager.repositories.SupplierRepository;
 import com.guilherme.administrativemanager.repositories.UserRepository;
@@ -28,6 +26,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private SupplierRepository supplierRepository;
 
+    @Autowired
+    private ClientRepository clientRepository;
+
 
     @Override
     public void run(String... args) throws Exception {
@@ -46,6 +47,11 @@ public class TestConfig implements CommandLineRunner {
         Supplier supplier2 = new Supplier(null, "123-45-6789", "Canonical", new Address("Blossom Lane", 456, "Los Angeles", "90001", "USA"));
 
         supplierRepository.saveAll(Arrays.asList(supplier1, supplier2));
+
+        Client client1 = new Client(null, "12-3456789", "JFA", new Address("Elm Street", 789, "Chicago", "60601", "USA"));
+        Client client2 = new Client(null, "123-45-6789", "Joe Ramone", new Address("Maple Avenue", 1011, "Houston", "77001", "USA"));
+
+        clientRepository.saveAll(Arrays.asList(client1, client2));
 
     }
 }
