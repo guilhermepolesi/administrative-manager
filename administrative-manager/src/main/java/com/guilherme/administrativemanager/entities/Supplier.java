@@ -1,13 +1,14 @@
 package com.guilherme.administrativemanager.entities;
 
+import com.guilherme.administrativemanager.utils.Address;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "tb_user")
-public class User implements Serializable {
+@Table(name = "tb_supplier")
+public class Supplier implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -16,18 +17,17 @@ public class User implements Serializable {
     private Long id;
     private String einSsn;
     private String name;
-    @ManyToOne
-    @JoinColumn(name = "department_id")
-    private Department department;
+    @Embedded
+    private Address address;
 
-    public User() {
+    public Supplier() {
     }
 
-    public User(Long id, String einSsn, String name, Department department) {
+    public Supplier(Long id, String einSsn, String name, Address address) {
         this.id = id;
         this.einSsn = einSsn;
         this.name = name;
-        this.department = department;
+        this.address = address;
     }
 
     public Long getId() {
@@ -42,7 +42,7 @@ public class User implements Serializable {
         return einSsn;
     }
 
-    public void setEinSsn(String einSsn) {
+    public void setEinSn(String einSsn) {
         this.einSsn = einSsn;
     }
 
@@ -54,24 +54,25 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public Department getDepartment() {
-        return department;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id);
+        Supplier supplier = (Supplier) o;
+        return Objects.equals(id, supplier.id);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }
