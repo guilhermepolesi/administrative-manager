@@ -1,8 +1,7 @@
 package com.guilherme.administrativemanager.resources;
 
-import com.guilherme.administrativemanager.entities.Department;
-import com.guilherme.administrativemanager.entities.DepartmentCategory;
-import com.guilherme.administrativemanager.services.DepartmentService;
+import com.guilherme.administrativemanager.entities.Product;
+import com.guilherme.administrativemanager.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,22 +12,22 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/departments")
-public class DepartmentResource {
+@RequestMapping(value = "/products")
+public class ProductResource {
 
     @Autowired
-    private DepartmentService departmentService;
-    @GetMapping
-    public ResponseEntity<List<Department>> findAll() {
-        List<Department> list = departmentService.findAll();
+    private ProductService productService;
 
+    @GetMapping
+    public ResponseEntity<List<Product>> findAll() {
+        List<Product> list = productService.findAll();
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Department> findById(@PathVariable Long id) {
-        Department obj = departmentService.findById(id);
+    public ResponseEntity<Product> findById(@PathVariable Long id) {
+        Product obj = productService.findById(id);
         return ResponseEntity.ok().body(obj);
     }
-
+    
 }

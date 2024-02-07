@@ -6,8 +6,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "tb_user")
-public class User implements Serializable {
+@Table(name = "tb_product")
+public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -15,17 +15,15 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @ManyToOne
-    @JoinColumn(name = "department_id")
-    private Department department;
+    private Double price;
 
-    public User() {
+    public Product() {
     }
 
-    public User(Long id, String name, Department department) {
+    public Product(Long id, String name, Double price) {
         this.id = id;
         this.name = name;
-        this.department = department;
+        this.price = price;
     }
 
     public Long getId() {
@@ -44,24 +42,25 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public Department getDepartment() {
-        return department;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id);
+        Product product = (Product) o;
+        return Objects.equals(id, product.id);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }

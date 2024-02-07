@@ -1,10 +1,7 @@
 package com.guilherme.administrativemanager.config;
 
 import com.guilherme.administrativemanager.entities.*;
-import com.guilherme.administrativemanager.repositories.ClientRepository;
-import com.guilherme.administrativemanager.repositories.DepartmentRepository;
-import com.guilherme.administrativemanager.repositories.SupplierRepository;
-import com.guilherme.administrativemanager.repositories.UserRepository;
+import com.guilherme.administrativemanager.repositories.*;
 import com.guilherme.administrativemanager.utils.Address;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -29,6 +26,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private ClientRepository clientRepository;
 
+    @Autowired
+    private ProductRepository productRepository;
+
 
     @Override
     public void run(String... args) throws Exception {
@@ -38,8 +38,8 @@ public class TestConfig implements CommandLineRunner {
 
         departmentRepository.saveAll(Arrays.asList(department1, department2));
 
-        User user1 = new User(null, "12-3456789", "Ada Lovelace", new Department(department1.getId(), department1.getDepartmentCategory()));
-        User user2 = new User(null, "123-45-6789", "Alan Turing", new Department(department2.getId(), department2.getDepartmentCategory()));
+        User user1 = new User(null, "Ada Lovelace", new Department(department1.getId(), department1.getDepartmentCategory()));
+        User user2 = new User(null, "Alan Turing", new Department(department2.getId(), department2.getDepartmentCategory()));
 
         userRepository.saveAll(Arrays.asList(user1, user2));
 
@@ -52,6 +52,11 @@ public class TestConfig implements CommandLineRunner {
         Client client2 = new Client(null, "123-45-6789", "Joe Ramone", new Address("Maple Avenue", 1011, "Houston", "77001", "USA"));
 
         clientRepository.saveAll(Arrays.asList(client1, client2));
+
+        Product product1 = new Product(null, "Computer", 1500.00);
+        Product product2 = new Product(null, "Boxing Gloves", 50.00);
+
+        productRepository.saveAll(Arrays.asList(product1, product2));
 
     }
 }
