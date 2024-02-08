@@ -32,6 +32,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private StockRepository stockRepository;
 
+    @Autowired
+    private ProductStockRepository productStockRepository;
+
 
     @Override
     public void run(String... args) throws Exception {
@@ -65,6 +68,11 @@ public class TestConfig implements CommandLineRunner {
         Stock stock2 = new Stock(null, "Sports");
 
         stockRepository.saveAll(Arrays.asList(stock1, stock2));
+
+        ProductStock productStock1 = new ProductStock(null, product1, stock1, 100);
+        ProductStock productStock2 = new ProductStock(null, product2, stock2, 50);
+
+        productStockRepository.saveAll(Arrays.asList(productStock1, productStock2));
 
     }
 }
