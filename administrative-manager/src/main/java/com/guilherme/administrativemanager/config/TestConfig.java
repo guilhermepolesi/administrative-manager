@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 
 @Configuration
@@ -34,6 +35,12 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private ProductStockRepository productStockRepository;
+
+    @Autowired
+    private PurchaseOrderRepository purchaseOrderRepository;
+
+    @Autowired
+    private SalesOrderRepository salesOrderRepository;
 
 
     @Override
@@ -73,6 +80,17 @@ public class TestConfig implements CommandLineRunner {
         ProductStock productStock2 = new ProductStock(null, product2, stock2, 50);
 
         productStockRepository.saveAll(Arrays.asList(productStock1, productStock2));
+
+        PurchaseOrder purchaseOrder1 = new PurchaseOrder(null, LocalDate.now(), user1, supplier1);
+        PurchaseOrder purchaseOrder2 = new PurchaseOrder(null, LocalDate.now(), user1, supplier2);
+
+        purchaseOrderRepository.saveAll(Arrays.asList(purchaseOrder1, purchaseOrder2));
+
+        SalesOrder salesOrder1 = new SalesOrder(null, LocalDate.now(), user2, client1);
+        SalesOrder salesOrder2 = new SalesOrder(null, LocalDate.now(), user2, client2);
+
+        salesOrderRepository.saveAll(Arrays.asList(salesOrder1, salesOrder2));
+
 
     }
 }
