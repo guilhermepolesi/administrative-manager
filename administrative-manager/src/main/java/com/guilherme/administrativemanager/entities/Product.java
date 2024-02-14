@@ -1,9 +1,12 @@
 package com.guilherme.administrativemanager.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_product")
@@ -16,6 +19,9 @@ public class Product implements Serializable {
     private Long id;
     private String name;
     private Double price;
+
+    @OneToMany(mappedBy = "id.product")
+    private Set<PurchaseOrderItem> purchaseOrderItems = new HashSet<>();
 
     public Product() {
     }
@@ -48,6 +54,15 @@ public class Product implements Serializable {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    @JsonIgnore
+    public Set<PurchaseOrder> getOrders() {
+        Set<PurchaseOrder> set = new HashSet<>();
+        for (PurchaseOrderItem x : purchaseOrderItems) {
+            set.add(x.getPurchaseOrder());
+        }
+        return set;
     }
 
     @Override

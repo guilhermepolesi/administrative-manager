@@ -1,8 +1,11 @@
 package com.guilherme.administrativemanager.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -18,7 +21,12 @@ public class User implements Serializable {
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
-
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<PurchaseOrder> purchaseOrders = new ArrayList<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<SalesOrder> salesOrders= new ArrayList<>();
     public User() {
     }
 

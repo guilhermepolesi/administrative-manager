@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Profile;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 @Configuration
 @Profile("test")
@@ -42,6 +44,11 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private SalesOrderRepository salesOrderRepository;
 
+    @Autowired
+    private PurchaseOrderItemRepository purchaseOrderItemRepository;
+
+    @Autowired
+    private SalesOrderItemRepository salesOrderItemRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -81,15 +88,26 @@ public class TestConfig implements CommandLineRunner {
 
         productStockRepository.saveAll(Arrays.asList(productStock1, productStock2));
 
+
+
         PurchaseOrder purchaseOrder1 = new PurchaseOrder(null, LocalDate.now(), user1, supplier1);
         PurchaseOrder purchaseOrder2 = new PurchaseOrder(null, LocalDate.now(), user1, supplier2);
-
         purchaseOrderRepository.saveAll(Arrays.asList(purchaseOrder1, purchaseOrder2));
+        PurchaseOrderItem purchaseOrderItem1 = new PurchaseOrderItem(purchaseOrder1, product1, 10, product1.getPrice());
+        PurchaseOrderItem purchaseOrderItem2 = new PurchaseOrderItem(purchaseOrder1, product2, 20, product2.getPrice());
+        PurchaseOrderItem purchaseOrderItem3 = new PurchaseOrderItem(purchaseOrder2, product2, 30, product2.getPrice());
+        purchaseOrderItemRepository.saveAll(Arrays.asList(purchaseOrderItem1, purchaseOrderItem2, purchaseOrderItem3));
+
+
 
         SalesOrder salesOrder1 = new SalesOrder(null, LocalDate.now(), user2, client1);
         SalesOrder salesOrder2 = new SalesOrder(null, LocalDate.now(), user2, client2);
-
         salesOrderRepository.saveAll(Arrays.asList(salesOrder1, salesOrder2));
+        SalesOrderItem salesOrderItem1 = new SalesOrderItem(salesOrder1, product1, 10, product1.getPrice());
+        SalesOrderItem salesOrderItem2 = new SalesOrderItem(salesOrder1, product2, 20, product2.getPrice());
+        SalesOrderItem salesOrderItem3 = new SalesOrderItem(salesOrder2, product2, 30, product2.getPrice());
+        salesOrderItemRepository.saveAll(Arrays.asList(salesOrderItem1, salesOrderItem2, salesOrderItem3));
+
 
 
     }

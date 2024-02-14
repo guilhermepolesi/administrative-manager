@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_sales_order")
@@ -22,6 +24,8 @@ public class SalesOrder implements Serializable {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
+    @OneToMany(mappedBy = "id.salesOrder")
+    private Set<SalesOrderItem> salesOrderItems = new HashSet<>();
 
     public SalesOrder() {
     }
@@ -63,6 +67,18 @@ public class SalesOrder implements Serializable {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public Set<SalesOrderItem> getSalesOrderItems() {
+        return salesOrderItems;
+    }
+
+    public Double getTotal() {
+        double sum = 0.0;
+        for (SalesOrderItem x : salesOrderItems) {
+            sum += x.getSubTotal();
+        }
+        return sum;
     }
 
     @Override
