@@ -14,6 +14,10 @@ public class StockService {
     @Autowired
     private StockRepository stockRepository;
 
+    public Stock insert(Stock obj) {
+        return stockRepository.save(obj);
+    }
+
     public List<Stock> findAll() {
         return stockRepository.findAll();
     }
@@ -21,6 +25,16 @@ public class StockService {
     public Stock findById(Long id) {
         Optional<Stock> obj = stockRepository.findById(id);
         return obj.get();
+    }
+
+    public Stock update(Long id, Stock obj) {
+        Stock entity = stockRepository.getReferenceById(id);
+        updateData(entity, obj);
+        return stockRepository.save(entity);
+    }
+
+    private void updateData(Stock entity, Stock obj) {
+        entity.setName(obj.getName());
     }
     
 }
