@@ -58,8 +58,8 @@ public class TestConfig implements CommandLineRunner {
 
         departmentRepository.saveAll(Arrays.asList(department1, department2));
 
-        User user1 = new User(null, "Ada Lovelace", new Department(department1.getId(), department1.getDepartmentCategory()));
-        User user2 = new User(null, "Alan Turing", new Department(department2.getId(), department2.getDepartmentCategory()));
+        User user1 = new User(null, "Ada Lovelace", department1);
+        User user2 = new User(null, "Alan Turing", department2);
 
         userRepository.saveAll(Arrays.asList(user1, user2));
 
