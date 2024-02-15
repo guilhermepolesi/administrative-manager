@@ -14,6 +14,10 @@ public class SupplierService {
     @Autowired
     private SupplierRepository supplierRepository;
 
+    public Supplier insert(Supplier obj) {
+        return supplierRepository.save(obj);
+    }
+
     public List<Supplier> findAll() {
         return supplierRepository.findAll();
     }
@@ -21,6 +25,22 @@ public class SupplierService {
     public Supplier findById(Long id) {
         Optional<Supplier> obj = supplierRepository.findById(id);
         return obj.get();
+    }
+
+    public Supplier update(Long id, Supplier obj) {
+        Supplier entity = supplierRepository.getReferenceById(id);
+        updateData(entity, obj);
+        return supplierRepository.save(entity);
+    }
+
+    private void updateData(Supplier entity, Supplier obj) {
+        entity.setEinSsn(obj.getEinSsn());
+        entity.setName(obj.getName());
+        entity.setAddress(obj.getAddress());
+    }
+
+    public void delete(Long id) {
+        supplierRepository.deleteById(id);
     }
 
 }

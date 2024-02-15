@@ -42,7 +42,7 @@ public class Supplier implements Serializable {
         return einSsn;
     }
 
-    public void setEinSn(String einSsn) {
+    public void setEinSsn(String einSsn) {
         this.einSsn = einSsn;
     }
 
