@@ -14,6 +14,10 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    public User insert(User obj) {
+        return userRepository.save(obj);
+    }
+
     public List<User> findAll() {
         return userRepository.findAll();
     }
@@ -21,14 +25,6 @@ public class UserService {
     public User findById(Long id) {
         Optional<User> obj = userRepository.findById(id);
         return obj.get();
-    }
-
-    public User insert(User obj) {
-        return userRepository.save(obj);
-    }
-
-    public void delete(Long id) {
-        userRepository.deleteById(id);
     }
 
     public User update(Long id, User obj) {
@@ -41,4 +37,9 @@ public class UserService {
         entity.setName(obj.getName());
         entity.setDepartment(obj.getDepartment());
     }
+
+    public void delete(Long id) {
+        userRepository.deleteById(id);
+    }
+
 }
