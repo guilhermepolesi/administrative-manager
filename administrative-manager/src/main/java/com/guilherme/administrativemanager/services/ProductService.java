@@ -14,6 +14,10 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    public Product insert(Product obj) {
+        return productRepository.save(obj);
+    }
+
     public List<Product> findAll() {
         return productRepository.findAll();
     }
@@ -21,6 +25,17 @@ public class ProductService {
     public Product findById(Long id) {
         Optional<Product> obj = productRepository.findById(id);
         return obj.get();
+    }
+
+    public Product update(Long id, Product obj) {
+        Product entity = productRepository.getReferenceById(id);
+        updateData(entity, obj);
+        return productRepository.save(entity);
+    }
+
+    private void updateData(Product entity, Product obj) {
+        entity.setName(obj.getName());
+        entity.setPrice(obj.getPrice());
     }
     
 }

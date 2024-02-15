@@ -19,9 +19,10 @@ public class Product implements Serializable {
     private Long id;
     private String name;
     private Double price;
-
     @OneToMany(mappedBy = "id.product")
     private Set<PurchaseOrderItem> purchaseOrderItems = new HashSet<>();
+    @OneToMany(mappedBy = "id.product")
+    private Set<SalesOrderItem> salesOrderItems = new HashSet<>();
 
     public Product() {
     }
